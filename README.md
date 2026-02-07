@@ -44,7 +44,7 @@ Before you begin, ensure you have installed:
 - **Node.js** (v16 or higher) — [Download](https://nodejs.org/)
 - **npm** or **yarn** (comes with Node.js)
 - **PostgreSQL** (v12 or higher) — [Download](https://www.postgresql.org/)
-- **Git** — [Download](https://git-scm.com/)
+- **Git** — [Download]([https://git-scm.com/](https://github.com/saikatkumarmondal/hr-management-api))
 
 Verify installations:
 
