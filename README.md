@@ -112,8 +112,7 @@ hr-management-api/
 ### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/your-username/hr-management-api.git
-cd hr-management-api
+git clone https://github.com/saikatkumarmondal/hr-management-api
 ```
 
 ### Step 2: Install Dependencies
