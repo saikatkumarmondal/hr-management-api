@@ -59,28 +59,43 @@ export class EmployeeController {
           400,
         );
 
-      // Support photo via base64 JSON (`photo_base64`)
       let photoFilename: string | null = null;
-      if (req.body.photo_base64) {
-        // ensure uploads dir exists
-        const uploadsDir = path.join(process.cwd(), 'uploads');
-        if (!fs.existsSync(uploadsDir))
-          fs.mkdirSync(uploadsDir, { recursive: true });
 
-        // decode base64, save file
-        const matches = (req.body.photo_base64 as string).match(
-          /^data:(.+);base64,(.+)$/,
-        );
-        const base64Data = matches ? matches[2] : req.body.photo_base64;
-        const ext = matches && matches[1] ? matches[1].split('/')[1] : 'jpg';
-        const filename = `photo-${Date.now()}.${ext}`;
-        const filepath = path.join(uploadsDir, filename);
-        fs.writeFileSync(filepath, Buffer.from(base64Data, 'base64'));
-        photoFilename = filename;
+      // Handle photo from form-data (multipart file upload)
+      if (req.file) {
+        photoFilename = req.file.filename;
+      }
+      // Handle photo from base64 JSON or URL
+      else if (req.body.photo_base64) {
+        const photoInput = req.body.photo_base64 as string;
+
+        // Check if it's a URL (starts with http:// or https://)
+        if (
+          photoInput.startsWith('http://') ||
+          photoInput.startsWith('https://')
+        ) {
+          photoFilename = photoInput; // Store URL directly
+        } else {
+          // Handle base64 data
+          const uploadsDir = path.join(process.cwd(), 'uploads');
+          if (!fs.existsSync(uploadsDir))
+            fs.mkdirSync(uploadsDir, { recursive: true });
+
+          const matches = photoInput.match(/^data:(.+);base64,(.+)$/);
+          const base64Data = matches ? matches[2] : photoInput;
+          const ext = matches && matches[1] ? matches[1].split('/')[1] : 'jpg';
+          const filename = `photo-${Date.now()}.${ext}`;
+          const filepath = path.join(uploadsDir, filename);
+          fs.writeFileSync(filepath, Buffer.from(base64Data, 'base64'));
+          photoFilename = filename;
+        }
       }
 
+      // Exclude photo_base64 from database insertion (it's only used to generate photo_path)
+      const { photo_base64, ...restBody } = req.body;
+
       const employeeData = {
-        ...req.body,
+        ...restBody,
         photo_path: photoFilename,
       };
 
@@ -119,11 +134,18 @@ export class EmployeeController {
           400,
         );
 
-      let photoFilename: string | undefined;
-      if (req.body.photo_base64) {
+      const updateData: any = { ...req.body };
+
+      // Handle photo from form-data (multipart file upload)
+      if (req.file) {
+        updateData.photo_path = req.file.filename;
+      }
+      // Handle photo from base64 JSON (optional backup method)
+      else if (req.body.photo_base64) {
         const uploadsDir = path.join(process.cwd(), 'uploads');
         if (!fs.existsSync(uploadsDir))
           fs.mkdirSync(uploadsDir, { recursive: true });
+
         const matches = (req.body.photo_base64 as string).match(
           /^data:(.+);base64,(.+)$/,
         );
@@ -132,11 +154,8 @@ export class EmployeeController {
         const filename = `photo-${Date.now()}.${ext}`;
         const filepath = path.join(uploadsDir, filename);
         fs.writeFileSync(filepath, Buffer.from(base64Data, 'base64'));
-        photoFilename = filename;
+        updateData.photo_path = filename;
       }
-
-      const updateData: any = { ...req.body };
-      if (photoFilename) updateData.photo_path = photoFilename;
 
       await employeeService.updateEmployee(id, updateData);
       return sendSuccess(res, 'Employee updated successfully');
@@ -145,7 +164,6 @@ export class EmployeeController {
       return sendError(res, 'Update failed', error);
     }
   }
-
   async delete(req: IAuthRequest, res: Response) {
     try {
       // Safe cast: make sure we get string

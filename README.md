@@ -282,14 +282,53 @@ Authorization: Bearer <JWT_TOKEN>
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
   "name": "John Doe",
   "age": 28,
   "designation": "Senior Developer",
   "hiring_date": "2024-01-15",
   "date_of_birth": "1995-06-10",
   "salary": 75000,
-  "photo_base64": "data:image/jpeg;base64,/9j/4AAQ..."
+  "email": "john@example.com",           [Optional]
+  "photo_base64": "https://example.com/photo.jpg"  [Optional - URL or base64]
+}
+```
+
+**Field Details:**
+
+- `name, age, designation, hiring_date, date_of_birth, salary` — Required
+- `email` — Optional (can be added later)
+- `photo_base64` — Optional. Supports:
+  - External URL: `"https://example.com/photo.jpg"`
+  - Base64 with data URI: `"data:image/jpeg;base64,/9j/4AAQ..."`
+  - Plain base64: `"/9j/4AAQ..."`
+
+**Example Response (201 Created):**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": 12
+  },
+  "message": "Employee created successfully"
+}
+```
+
+**Example: Create Employee Without Email**
+
+```http
+POST /employees
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "age": 26,
+  "designation": "Frontend Developer",
+  "hiring_date": "2024-06-01",
+  "date_of_birth": "1998-03-20",
+  "salary": 60000,
+  "photo_base64": "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane"
 }
 ```
 

@@ -36,28 +36,28 @@ ON CONFLICT (email) DO NOTHING;
 -- ============================================================================
 
 INSERT INTO employees 
-  (name, age, designation, hiring_date, date_of_birth, salary, email)
+  (name, age, designation, hiring_date, date_of_birth, salary, email, photo_path)
 VALUES
   -- Developer Team
-  ('Rahim Uddin', 28, 'Senior Developer', '2022-06-15', '1997-10-20', 75000.00, 'rahim.uddin@company.com'),
-  ('Fatima Ali', 26, 'Junior Developer', '2023-01-10', '1999-03-15', 50000.00, 'fatima.ali@company.com'),
-  ('Ahmed Hassan', 30, 'Full Stack Developer', '2021-02-14', '1995-07-05', 85000.00, 'ahmed.hassan@company.com'),
+  ('Rahim Uddin', 28, 'Senior Developer', '2022-06-15', '1997-10-20', 75000.00, 'rahim.uddin@company.com', 'https://www.ninassarts.com/wp-content/uploads/2025/05/11115-Kali-Ma-min.jpg'),
+  ('Fatima Ali', 26, 'Junior Developer', '2023-01-10', '1999-03-15', 50000.00, 'fatima.ali@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Fatima'),
+  ('Ahmed Hassan', 30, 'Full Stack Developer', '2021-02-14', '1995-07-05', 85000.00, 'ahmed.hassan@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed'),
   
   -- Management Team
-  ('Karim Hasan', 32, 'Project Manager', '2021-03-01', '1993-08-25', 80000.00, 'karim.hasan@company.com'),
-  ('Aisha Khan', 29, 'HR Manager', '2021-09-20', '1996-12-10', 65000.00, 'aisha.khan@company.com'),
+  ('Karim Hasan', 32, 'Project Manager', '2021-03-01', '1993-08-25', 80000.00, 'karim.hasan@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Karim'),
+  ('Aisha Khan', 29, 'HR Manager', '2021-09-20', '1996-12-10', 65000.00, 'aisha.khan@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Aisha'),
   
   -- Operations Team
-  ('Md. Reza Khan', 35, 'Operations Manager', '2020-05-10', '1990-11-15', 70000.00, 'reza.khan@company.com'),
-  ('Nadia Islam', 27, 'Operations Executive', '2023-06-01', '1998-02-28', 45000.00, 'nadia.islam@company.com'),
+  ('Md. Reza Khan', 35, 'Operations Manager', '2020-05-10', '1990-11-15', 70000.00, 'reza.khan@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Reza'),
+  ('Nadia Islam', 27, 'Operations Executive', '2023-06-01', '1998-02-28', 45000.00, 'nadia.islam@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Nadia'),
   
   -- Finance Team
-  ('Imran Ali', 31, 'Finance Manager', '2021-01-15', '1994-09-10', 75000.00, 'imran.ali@company.com'),
-  ('Zainab Ahmed', 25, 'Junior Accountant', '2023-09-20', '2000-05-30', 42000.00, 'zainab.ahmed@company.com'),
+  ('Imran Ali', 31, 'Finance Manager', '2021-01-15', '1994-09-10', 75000.00, 'imran.ali@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Imran'),
+  ('Zainab Ahmed', 25, 'Junior Accountant', '2023-09-20', '2000-05-30', 42000.00, 'zainab.ahmed@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Zainab'),
   
   -- Support Team
-  ('Hasan Mahmud', 28, 'Support Engineer', '2022-08-01', '1997-04-12', 52000.00, 'hasan.mahmud@company.com'),
-  ('Ram Mondal', 24, 'Support Executive', '2024-01-15', '2001-08-22', 35000.00, 'ram.mondal@company.com')
+  ('Hasan Mahmud', 28, 'Support Engineer', '2022-08-01', '1997-04-12', 52000.00, 'hasan.mahmud@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hasan'),
+  ('Ram Mondal', 24, 'Support Executive', '2024-01-15', '2001-08-22', 35000.00, 'ram.mondal@company.com', 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ram')
 ON CONFLICT (email) DO NOTHING;
 
 -- ============================================================================

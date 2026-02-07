@@ -6,13 +6,14 @@ export const loginSchema = Joi.object({
 });
 
 export const employeeSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string().email().optional().allow(null, ''),
   name: Joi.string().required(),
   age: Joi.number().integer().min(18).required(),
   designation: Joi.string().required(),
   hiring_date: Joi.date().iso().required(),
   date_of_birth: Joi.date().iso().required(),
   salary: Joi.number().positive().required(),
+  photo_base64: Joi.string().optional().allow(null, ''),
 });
 
 export const attendanceSchema = Joi.object({
