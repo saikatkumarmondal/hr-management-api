@@ -214,11 +214,7 @@ npm run build              # Compile TypeScript to JS
 npm start                  # Run compiled code
 ```
 
-### Docker Support (Optional)
 
-```bash
-docker build -t hr-api .
-docker run -p 5000:5000 --env-file .env hr-api
 ```
 
 ---
